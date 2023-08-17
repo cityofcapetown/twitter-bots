@@ -10,7 +10,8 @@ SERVICE_ALERT_PREFIX = "alerts"
 
 CHATGPT_TEMPLATE = """
 Please draft a tweet about a potential City of Cape Town service outage or update, using any of the details in the 
-following JSON. The "service_area" field refers to the responsible department.
+following JSON. The "service_area" field refers to the responsible department. Please prioritise the location and time
+information.
 
 {json_str}
 
@@ -151,7 +152,7 @@ def lambda_handler(event, context):
         s3.put_object(
             Body=service_alert_json,
             Bucket=TWITTER_BOT_BUCKET,
-            Key=SERVICE_ALERT_PREFIX + "/" + service_alert_filename,
+            Key=service_alert_key,
             ContentType='application/json'
         )
 
