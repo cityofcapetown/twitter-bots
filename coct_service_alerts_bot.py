@@ -106,6 +106,13 @@ def lambda_handler(event, context):
     for service_alert in data:
         service_alert_id = service_alert['Id']
         service_alert_filename = f"{service_alert_id}.json"
+        service_alert_key = SERVICE_ALERT_PREFIX + "/" + service_alert_filename
+
+        list_response = s3.list_objects_v2(Bucket=TWITTER_BOT_BUCKET, Prefix=service_alert_key)
+
+        if 'Contents' in list_response:
+            print(f"{service_alert_id} already exists, skipping!")
+            continue
 
         # Removing a few fields which often confuse ChatGPT
         for field in ('Id', 'publish_date', 'effective_date', 'expiry_date'):
