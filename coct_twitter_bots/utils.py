@@ -7,7 +7,8 @@ from requests_oauthlib import OAuth1Session
 
 @contextlib.contextmanager
 def init_twitter_oauth_session() -> OAuth1Session:
-    # borrowed heavily from https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Manage-Tweets/create_tweet.py
+    # borrowed heavily from
+    # https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Manage-Tweets/create_tweet.py
     with OAuth1Session(os.environ["TWITTER_CONSUMER_KEY"],
                        client_secret=os.environ["TWITTER_CONSUMER_SECRET"],
                        resource_owner_key=os.environ["TWITTER_ACCESS_TOKEN"],
